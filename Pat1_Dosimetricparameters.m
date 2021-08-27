@@ -5,7 +5,7 @@
 % %  Author:            SG
 % %                     (C) Heidelberg University
 % %  Project name:      Seed train positions (orientation and trajectories) of
-% %                     the pre-plan and the final intra-operative implant using the dicom files:
+% %                     the pre-plan and the final intra-operative implant using dicom files:
 % %
 % %  Date:              2021-07-18
 % % </remarks>
@@ -16,31 +16,31 @@ clc, close all, clear all
 %% DVH  plot
 figure
 subplot(1,2,1)
-[x,yp] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Intra-OP - Preop- DVH Data.txt");
+[x,yp] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Intra-OP - Preop- DVH Data.txt");
 
 x(1,1) = 0;
 yp(1,1) = 0;
 
 plot(x,yp,'r--')
 hold on
-[x,yp_io] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Intra-OP - Intraop - DVH Data.txt");
+[x,yp_io] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Intra-OP - Intraop - DVH Data.txt");
 
 x(1,1) = 0;
 yp_io(1,1) = 0;
 plot(x,yp_io,'r')
 
 % OAR 1
-[x,yr] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Rectum Intra-OP - Preplan - DVH Data.txt");
+[x,yr] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Rectum Intra-OP - Preplan - DVH Data.txt");
 plot(x,yr,'g--')
 
-[x,yr_io] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Rectum Intra-OP - Intraop - DVH Data.txt");
+[x,yr_io] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Rectum Intra-OP - Intraop - DVH Data.txt");
 plot(x,yr_io,'g')
 
 % OAR 2
-[x,yu] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Urethra Intra-OP - Preplan - DVH Data.txt");
+[x,yu] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Urethra Intra-OP - Preplan - DVH Data.txt");
 plot(x,yu,'b--')
 
-[x,yu_io] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P1_Urethra Intra-OP - Intraop - DVH Data.txt");
+[x,yu_io] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P1_Urethra Intra-OP - Intraop - DVH Data.txt");
 plot(x,yu_io,'b')
 
 legend("Plan Target","IntraOp Target","Plan Rectum","IntraOp Rectum","Plan Urethra","IntraOp Urethra")
@@ -48,7 +48,7 @@ xlabel('Dose (Gy)')
 ylabel('% Volume')
 
 subplot(1,2,2)
-[x,yp_p2] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P2_Intra-OP - Preop- DVH Data.txt");
+[x,yp_p2] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P2_Intra-OP - Preop- DVH Data.txt");
 
 x(1,1) = 0;
 yp_p2(1,1) = 0;
@@ -56,7 +56,7 @@ yp_p2(1,1) = 0;
 plot(x,yp_p2,'r--')
 hold on
 
-[x,yp_io_p2] = PullDVH("C:\Users\Samson\Desktop\Thesis\Data\histogram_DVH_pre and Intra op plans\P2_Intra-OP - Intraop - DVH Data.txt");
+[x,yp_io_p2] = PullDVH("C:\Users\Data\histogram_DVH_pre and Intra op plans\P2_Intra-OP - Intraop - DVH Data.txt");
 x(1,1) = 0;
 yp_io_p2(1,1) = 0;
 
@@ -85,8 +85,8 @@ Vol_io_p1 = trapz(yp_io);
 cvol_io_p1 = cumtrapz(yp_io);
 Delta_vol_p1 = Vol_io_p1 - Vol_plan_p1
 %% P1 pre D90 isodose curve p/r/u
-dose = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm'));
-doseI = dicominfo('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm');
+dose = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
+doseI = dicominfo('C:\Users\Data\Pat1_Preplan\DO001.dcm');
 total_area_pre = 0;
 col = [];
 for i = 1:size(dose,3)
@@ -115,8 +115,8 @@ end
 disp(sum(total_area_pre/1000,'all'))
 
 %% P1 interaoperative D90 isodose curves p/r/u
-dose = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
-doseI = dicominfo('C:\Users\Samson\Desktop\Thesis\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm');
+dose = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
+doseI = dicominfo('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm');
 total_area_inter = 0;
 col = [];
 for i = 1:size(dose,3)
@@ -150,8 +150,8 @@ disp(sum(total_area_inter/1000,'all'))
 fprintf(['P1 prostate volume diff (based on D90 curve) = ',num2str(sum(total_area_inter/1000,'all')-sum(total_area_pre/1000,'all')),'ml\n']);
 
 %% P1 dose map diff visual
-dosePre = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm'));
-dosePost = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
+dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
+dosePost = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
 doseDelta = abs(dosePost-dosePre);
 for i = 1:14
     %     disp(i)
@@ -241,8 +241,8 @@ set(gca,'xticklabel',{'P1Q1','P1Q2','P1Q3','P1Q4'})
 legend('mean','std')
 %% (D90 curve p/r/u) for all slices
 
-dosePre = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm'));
-dosePost = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
+dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
+dosePost = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
 
 dosemap = sum(dosePre,3);
 ma = max(dosemap,[],'all');
@@ -327,7 +327,7 @@ for i = 1:size(dosePost,3)
     hold on
     pre = dosePre(:,:,i);
     post = dosePost(:,:,i);
-    doseI = dicominfo('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm');
+    doseI = dicominfo('C:\Users\Data\Pat1_Preplan\DO001.dcm');
     contour(pre*doseI.DoseGridScaling,[isodose_p,isodose_p],'LineColor','r','LineWidth',1,'ShowText','off');set(gca, 'YDir','reverse');
     hold on
     contour(pre*doseI.DoseGridScaling,[isodose_r,isodose_r],'LineColor','g','LineWidth',1,'ShowText','off');set(gca, 'YDir','reverse');
@@ -350,8 +350,8 @@ for i = 1:size(dosePost,3)
 end
 %% P1 sum stack/ isodose curve for p/r/u (D90 V100/ D90 V150)
 %D90 V100
-dosePre = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm'));
-dosePost = squeeze(dicomread('C:\Users\Samson\Desktop\Thesis\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
+dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
+dosePost = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
 dosePre = sum(dosePre,3)/14;
 dosePost = sum(dosePost,3)/14;
 figure
@@ -361,7 +361,7 @@ t(:,:,1) = (testmap==2);
 t(:,:,2) = (testmap2==2);
 imshow(t,[])
 hold on
-doseI = dicominfo('C:\Users\Samson\Desktop\Thesis\Data\Pat1_Preplan\DO001.dcm');
+doseI = dicominfo('C:\Users\Data\Pat1_Preplan\DO001.dcm');
 [C,h] = contour(dosePre*doseI.DoseGridScaling,[isodose_p,isodose_p],'LineColor','r','LineWidth',1,'ShowText','on');set(gca, 'YDir','reverse');
 clabel(C,h,'FontSize',7,'LabelSpacing',1000,'Color','w')
 hold on
