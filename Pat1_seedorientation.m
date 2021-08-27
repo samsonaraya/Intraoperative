@@ -5,7 +5,7 @@
 % %  Author:            SG
 % %                     (C) Heidelberg University
 % %  Project name:      Seed train positions (orientation and trajectories) of
-% %                     the pre-plan and the final intra-operative implant using the dicom files:
+% %                     the pre-plan and the final intra-operative implant using dicom files:
 % %
 % %  Date:              2021-04-01
 % % </remarks>
