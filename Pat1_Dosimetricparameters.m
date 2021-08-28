@@ -64,7 +64,8 @@ plot(x,yp_io_p2,'r')
 legend("Plan Target_ P2","IntraOp Target_ P2")
 xlabel('Dose (Gy)')
 ylabel('% Volume')
-%% p1 u/r isodose D90
+
+%% Patient1 Prostate/Urethra/Rectum isodose D90
 isodose_u = DXX(90, x, yu);
 isodose_u_io = DXX(90, x, yu_io);
 isodose_r = DXX(90, x, yr);
@@ -73,7 +74,7 @@ isodose_p = DXX(90, x, yp);
 isodose_p_io = DXX(90, x, yp_io);
 
 %% Find Volume difference
-%% Delta_vol_Pat1
+%% Delta_vol_Patient1
 xverts_plan_p1 = x(1:1:end);
 yverts_plan_p1 = yp(1:1:end);
 p1 = patch(xverts_plan_p1,yverts_plan_p1,'g');%,'LineWidth',0,5);
@@ -84,7 +85,9 @@ yverts_io = [yp_io(1:end)];
 Vol_io_p1 = trapz(yp_io);
 cvol_io_p1 = cumtrapz(yp_io);
 Delta_vol_p1 = Vol_io_p1 - Vol_plan_p1
-%% P1 pre D90 isodose curve p/r/u
+
+%% P1 preplan D90 isodose curve p/r/u
+
 dose = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
 doseI = dicominfo('C:\Users\Data\Pat1_Preplan\DO001.dcm');
 total_area_pre = 0;
@@ -207,7 +210,7 @@ for  l = 1:1:3
 end
 sgtitle("Patient 1")
 
-%Pull Quad Data
+% Pull Quad Data
 quadStats = cell(4,4);
 q = 1;
 figure
@@ -225,7 +228,7 @@ for i = [1,40]
         q = q+1;
     end
 end
-%% bar plot (std mean) for P1 prostate (4 region)
+%% bar plot (std mean) for P1 prostate (4 regions)
 
 x = [];
 for i=1:4
@@ -239,6 +242,8 @@ er.Color = [0 0 0];
 er.LineStyle = 'none';
 set(gca,'xticklabel',{'P1Q1','P1Q2','P1Q3','P1Q4'})
 legend('mean','std')
+
+
 %% (D90 curve p/r/u) for all slices
 
 dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
@@ -353,6 +358,7 @@ for i = 1:size(dosePost,3)
     %     waitforbuttonpress
     
 end
+
 %% P1 sum stack/ isodose curve for p/r/u (D90 V100/ D90 V150)
 %D90 V100
 dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
@@ -398,7 +404,7 @@ t(:,:,2) = (testmap2==2);
 imshow(t,[])
 hold on
 % [area,~,~] = Contour2Area(contour(pre*doseI.DoseGridScaling,[isodose_p,isodose_p]));
-[C,h] = contour(dosePre*doseI.DoseGridScaling,[isodose_p*1.5,isodose_p*1.5],'LineColor','r','LineWidth',1,'ShowText','on');set(gca, 'YDir','reverse');
+[C,h] = contour(dosePre*doseI.DoseGridScaling,[isodose_p*1.5,isodose_p*1.5],'LineColor','r','LineWidth',1,'ShowText','on');set(gca, 'YDir','reverse'); % multiplied by 1.5 for V150
 clabel(C,h,'FontSize',7,'LabelSpacing',1000,'Color','w')
 hold on
 [C,h] = contour(dosePre*doseI.DoseGridScaling,[isodose_r*1.5,isodose_r*1.5],'LineColor','g','LineWidth',1,'ShowText','on');set(gca, 'YDir','reverse');
