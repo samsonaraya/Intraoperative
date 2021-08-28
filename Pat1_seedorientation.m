@@ -108,8 +108,19 @@ legend([p1,p2,p3])
 grid minor
 set(gca, 'YDir','reverse')
 
+seeds_preplan=i
+seeds_iotp=j
+Mean_deviation=round(mean(dTrue(:,3)),3)
+std_deviation=round(std(dTrue(:,3)),3)
+Mean_orientation=round(mean(dTrue(:,4)),3)
+std_orientation=round(std(dTrue(:,4)),3)
 
-%%%% Break here to Get the result of seed movement 
+T = table(seeds_preplan,seeds_iotp,Mean_deviation,std_deviation,Mean_orientation,std_orientation)
+
+
+
+
+%%%% Break here to Get the result of seed movement and estimate of orientations
 
 
 %% Preplan 1 G(r)
