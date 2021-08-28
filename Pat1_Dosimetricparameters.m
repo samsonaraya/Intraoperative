@@ -242,6 +242,11 @@ legend('mean','std')
 %% (D90 curve p/r/u) for all slices
 
 dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
+% a = sort(reshape(dosePre,[1,89600]));
+% xLim = a(round(0.98*89600)); % to avoid "hot peaks" near seeds 89600 is product of 80*80*14 (adjust depending on the number of slices.
+% dosePre(dosePre>xLim) = xLim;
+% imshow(dosePre(:,:,5),[])
+
 dosePost = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
 
 dosemap = sum(dosePre,3);
@@ -337,9 +342,9 @@ for i = 1:size(dosePost,3)
     % [area2,~,~] = Contour2Area(contour(post*doseI.DoseGridScaling,[isodose_p_io,isodose_p_io]));
     contour(post*doseI.DoseGridScaling,[isodose_p_io,isodose_p_io],'LineColor','r','LineWidth',1,'LineStyle','-.','ShowText','off');set(gca, 'YDir','reverse');
     hold on
-    contour(pre*doseI.DoseGridScaling,[isodose_r_io,isodose_r_io],'LineColor','g','LineWidth',1,'LineStyle','-.','ShowText','off');set(gca, 'YDir','reverse');
+    contour(post*doseI.DoseGridScaling,[isodose_r_io,isodose_r_io],'LineColor','g','LineWidth',1,'LineStyle','-.','ShowText','off');set(gca, 'YDir','reverse');
     hold on
-    contour(pre*doseI.DoseGridScaling,[isodose_u_io,isodose_u_io],'LineColor','y','LineWidth',1,'LineStyle','-.','ShowText','off');set(gca, 'YDir','reverse');
+    contour(post*doseI.DoseGridScaling,[isodose_u_io,isodose_u_io],'LineColor','y','LineWidth',1,'LineStyle','-.','ShowText','off');set(gca, 'YDir','reverse');
     hold on
     line([1,80],[40,40]);hold on; line([40,40],[1,80]);
     legend({'Preplan','Preplan rectum','Preplan urethra','Intraoperative','Intraoperative rectum','Intraoperative urethra'},'Location','eastoutside')
@@ -353,7 +358,7 @@ end
 dosePre = squeeze(dicomread('C:\Users\Data\Pat1_Preplan\DO001.dcm'));
 dosePost = squeeze(dicomread('C:\Users\Data\Pat1_IntraoperativeTrementPlan\DO001.dcm'));
 dosePre = sum(dosePre,3)/14;
-dosePost = sum(dosePost,3)/14;
+dosePost = sum(dosePost,3)/14; % 14 refers to the number os slices used (adjust depending on the particular case)
 figure
 subplot(1,2,1)
 t = zeros([80,80,3]);
